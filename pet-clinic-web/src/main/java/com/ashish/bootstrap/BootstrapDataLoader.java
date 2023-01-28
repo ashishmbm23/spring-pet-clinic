@@ -1,7 +1,5 @@
 package com.ashish.bootstrap;
 
-import com.ashish.map.OwnerMapService;
-import com.ashish.map.VetMapService;
 import com.ashish.model.Owner;
 import com.ashish.model.Vet;
 import com.ashish.services.OwnerService;
@@ -15,9 +13,9 @@ public class BootstrapDataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
 
-    public BootstrapDataLoader() {
-        this.ownerService = new OwnerMapService();
-        this.vetService = new VetMapService();
+    public BootstrapDataLoader(OwnerService ownerService, VetService vetService) {
+        this.ownerService = ownerService;
+        this.vetService = vetService;
     }
 
     @Override
