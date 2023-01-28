@@ -7,7 +7,9 @@ import com.ashish.model.Vet;
 import com.ashish.services.OwnerService;
 import com.ashish.services.VetService;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BootstrapDataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
