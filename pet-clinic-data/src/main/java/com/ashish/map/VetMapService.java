@@ -1,11 +1,11 @@
 package com.ashish.map;
 
 import com.ashish.model.Vet;
-import com.ashish.services.CrudService;
+import com.ashish.services.VetService;
 
 import java.util.Set;
 
-public class VetMapService extends AbstractMapService<Vet, Long> implements CrudService<Vet, Long> {
+public class VetMapService extends AbstractMapService<Vet, Long> implements VetService {
     @Override
     public Set<Vet> findAll() {
         return super.findAll();

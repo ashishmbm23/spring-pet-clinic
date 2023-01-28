@@ -1,11 +1,11 @@
 package com.ashish.map;
 
 import com.ashish.model.Owner;
-import com.ashish.services.CrudService;
+import com.ashish.services.OwnerService;
 
 import java.util.Set;
 
-public class OwnerMapService extends AbstractMapService<Owner, Long> implements CrudService<Owner, Long> {
+public class OwnerMapService extends AbstractMapService<Owner, Long> implements OwnerService {
     @Override
     public Set<Owner> findAll() {
         return super.findAll();
@@ -29,5 +29,10 @@ public class OwnerMapService extends AbstractMapService<Owner, Long> implements 
     @Override
     public Owner findById(Long id) {
         return super.findById(id);
+    }
+
+    @Override
+    public Owner findByLastName(String name) {
+        return null;
     }
 }
