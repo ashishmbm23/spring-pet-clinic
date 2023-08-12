@@ -1,12 +1,11 @@
 package com.ashish.model;
 
 import jakarta.persistence.*;
-import org.springframework.data.repository.cdi.Eager;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Eager
+@Entity
 @Table( name = "vets" )
 public class Vet extends Person{
 
