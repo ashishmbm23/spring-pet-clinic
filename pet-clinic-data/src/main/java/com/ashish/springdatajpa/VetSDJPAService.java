@@ -3,10 +3,14 @@ package com.ashish.springdatajpa;
 import com.ashish.model.Vet;
 import com.ashish.repository.VetRepository;
 import com.ashish.services.VetService;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Service
+@Profile("spring.service.jpa")
 public class VetSDJPAService implements VetService {
 
     private final VetRepository vetRepository ;
