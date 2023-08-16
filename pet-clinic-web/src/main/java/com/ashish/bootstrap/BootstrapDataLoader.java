@@ -1,10 +1,7 @@
 package com.ashish.bootstrap;
 
 import com.ashish.model.*;
-import com.ashish.services.OwnerService;
-import com.ashish.services.PetTypeService;
-import com.ashish.services.SpecialityService;
-import com.ashish.services.VetService;
+import com.ashish.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +14,15 @@ public class BootstrapDataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialityService specialityService;
+    private final VisitService  visitService;
 
-    public BootstrapDataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService) {
+    public BootstrapDataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService,
+                               SpecialityService specialityService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialityService = specialityService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -86,9 +86,15 @@ public class BootstrapDataLoader implements CommandLineRunner {
         owner2.getPets().add(harshitaspet);
 
         ownerService.save(owner2);
-
         System.out.println("Loaded owners....");
 
+        Visit jimmyVisit = new Visit();
+        jimmyVisit.setPet(harshitaspet);
+        jimmyVisit.setDate(LocalDate.now());
+        jimmyVisit.setDescription("loss of hair");
+        visitService.save(jimmyVisit);
+
+        System.out.println("Loaded visits....");
         Vet vet1 = new Vet();
         vet1.setId(5001l);
         vet1.setFirstName("Rajkumar");
