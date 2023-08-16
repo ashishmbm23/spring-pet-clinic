@@ -83,16 +83,19 @@ public class BootstrapDataLoader implements CommandLineRunner {
         harshitaspet.setPetType(savedDog);
         harshitaspet.setBirthData(LocalDate.now());
         harshitaspet.setOwner(owner2);
-        owner2.getPets().add(harshitaspet);
 
-        ownerService.save(owner2);
-        System.out.println("Loaded owners....");
 
         Visit jimmyVisit = new Visit();
         jimmyVisit.setPet(harshitaspet);
         jimmyVisit.setDate(LocalDate.now());
         jimmyVisit.setDescription("loss of hair");
-        visitService.save(jimmyVisit);
+
+        harshitaspet.getVisits().add(jimmyVisit);
+        owner2.getPets().add(harshitaspet);
+        ownerService.save(owner2);
+        System.out.println("Loaded owners....");
+
+
 
         System.out.println("Loaded visits....");
         Vet vet1 = new Vet();

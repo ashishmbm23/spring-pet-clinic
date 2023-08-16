@@ -58,4 +58,12 @@ public class Pet extends BaseEntity{
     public void setBirthData(LocalDate birthData) {
         this.birthData = birthData;
     }
+
+    public Set<Visit> getVisits() {
+        return visits;
+    }
+
+    public void setVisits(Set<Visit> visits) {
+        this.visits = visits;
+    }
 }
