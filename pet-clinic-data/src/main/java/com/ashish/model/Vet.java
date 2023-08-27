@@ -1,12 +1,20 @@
 package com.ashish.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table( name = "vets" )
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Vet extends Person{
 
     @ManyToMany( fetch = FetchType.EAGER)
@@ -15,11 +23,4 @@ public class Vet extends Person{
     )
     private Set<Speciality> specialities = new HashSet<>();
 
-    public Set<Speciality> getSpecialities() {
-        return specialities;
-    }
-
-    public void setSpecialities(Set<Speciality> specialities) {
-        this.specialities = specialities;
-    }
 }
