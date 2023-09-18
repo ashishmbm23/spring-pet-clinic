@@ -1,6 +1,7 @@
 package com.ashish.map;
 
 import com.ashish.model.BaseEntity;
+import com.ashish.model.Owner;
 
 import java.util.*;
 
@@ -45,4 +46,5 @@ public abstract class AbstractMapService<T extends BaseEntity,ID extends Long> {
         }
         return nextId;
     }
+
 }
