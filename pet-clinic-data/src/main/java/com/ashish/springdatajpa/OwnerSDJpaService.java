@@ -8,6 +8,7 @@ import com.ashish.services.OwnerService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
@@ -59,4 +60,10 @@ public class OwnerSDJpaService implements OwnerService {
     public Owner findByLastName(String name) {
         return ownerRepository.findByLastName( name );
     }
+
+    @Override
+    public List<Owner> findAllByLastNameLike(String name) {
+        return ownerRepository.findAllByLastNameLike(name);
+    }
+
 }

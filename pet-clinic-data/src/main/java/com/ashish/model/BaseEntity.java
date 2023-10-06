@@ -16,10 +16,19 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BaseEntity implements Serializable {
+public class BaseEntity implements Serializable,Comparable<BaseEntity> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Override
+    public int compareTo(BaseEntity o) {
+        if( this.getId() < o.getId() ){
+            return -1;
+        }else{
+            return 1;
+        }
+    }
 
 }
