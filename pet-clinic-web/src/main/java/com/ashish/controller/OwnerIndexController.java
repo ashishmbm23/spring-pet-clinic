@@ -41,7 +41,7 @@ public class OwnerIndexController {
             owner.setLastName("");
         }
 
-        List<Owner> ownerSet = ownerService.findAllByLastNameLike(owner.getLastName());
+        List<Owner> ownerSet = ownerService.findAllByLastNameLike( '%' + owner.getLastName() + '%');
 
         if( ownerSet.size() == 0){
             result.rejectValue("lastName", "notFound", "not found");

@@ -73,7 +73,7 @@ public class BootstrapDataLoader implements CommandLineRunner {
         Owner owner2 = new Owner();
         owner2.setId(102l);
         owner2.setFirstName("Harshita");
-        owner2.setLastName("Verma");
+        owner2.setLastName("Kumari");
         owner2.setAddress("711313");
         owner2.setCity("Jaipur");
         owner2.setTelephone("1234413131");
