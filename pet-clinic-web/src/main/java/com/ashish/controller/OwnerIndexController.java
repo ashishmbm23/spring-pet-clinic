@@ -45,6 +45,7 @@ public class OwnerIndexController {
 
         if( ownerSet.size() == 0){
             result.rejectValue("lastName", "notFound", "not found");
+            return "owners/findOwners";
         }else{
             if( ownerSet.size() == 1){
                 Owner selectedOwner = ownerSet.iterator().next();
@@ -54,7 +55,6 @@ public class OwnerIndexController {
                 return "owners/ownersList";
             }
         }
-        return "owners/ownersList";
     }
 
     @GetMapping("/{ownerId}")
