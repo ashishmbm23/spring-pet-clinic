@@ -14,15 +14,16 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.Matchers.*;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
 class OwnerIndexControllerTest {
 
+    public static final long OWNER_ID = 1L;
     @Mock
     OwnerService ownerService;
 
@@ -71,5 +72,18 @@ class OwnerIndexControllerTest {
                 .andExpect(view().name("notImplemented"));
 
         verifyNoInteractions(ownerService);
+    }
+
+    @Test
+    void showOwner() throws Exception{
+        when( ownerService.findById(anyLong())).thenReturn(Owner.builder().id(OWNER_ID).build());
+
+        mockMvc.perform(get("/owners/" + OWNER_ID + "/show"))
+                .andExpect( view().name("owners/ownerDetails"))
+                .andExpect( model().attributeExists("owner"))
+                .andExpect( model().attribute("owner", hasProperty("id", is(OWNER_ID))))
+                .andExpect( status().isOk() );
+
+        verify( ownerService, times(1)).findById( anyLong() );
     }
 }

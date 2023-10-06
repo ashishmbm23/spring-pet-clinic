@@ -12,7 +12,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Owner extends Person{
+public class Owner extends Person implements Comparable<Owner>{
 
     @Builder
     public Owner( Long id, String firstName, String lastName, String address, String city, String telephone, Set<Pet> pets){
@@ -35,4 +35,12 @@ public class Owner extends Person{
     @OneToMany( cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets = new HashSet<Pet>();
 
+    @Override
+    public int compareTo(Owner o) {
+        if( this.getId() < o.getId() ){
+            return -1;
+        }else{
+            return 1;
+        }
+    }
 }

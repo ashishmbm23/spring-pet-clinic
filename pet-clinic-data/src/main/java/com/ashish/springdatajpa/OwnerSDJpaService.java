@@ -8,10 +8,10 @@ import com.ashish.services.OwnerService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
+
 @Service
 @Profile("springdatajpa")
 public class OwnerSDJpaService implements OwnerService {
@@ -29,7 +29,7 @@ public class OwnerSDJpaService implements OwnerService {
     @Override
     public Set<Owner> findAll() {
         Iterable<Owner> owners = ownerRepository.findAll();
-        Set<Owner> ownerSet = new HashSet<>();
+        Set<Owner> ownerSet = new TreeSet<>();
         owners.forEach(ownerSet::add);
         return ownerSet;
     }

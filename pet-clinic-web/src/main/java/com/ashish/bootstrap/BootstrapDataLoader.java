@@ -64,7 +64,7 @@ public class BootstrapDataLoader implements CommandLineRunner {
         Pet ashishspet = new Pet();
         ashishspet.setName("Rosco");
         ashishspet.setPetType(savedCat);
-        ashishspet.setBirthData(LocalDate.now());
+        ashishspet.setBirthDate(LocalDate.now());
         ashishspet.setOwner(owner1);
         owner1.getPets().add(ashishspet);
 
@@ -81,7 +81,7 @@ public class BootstrapDataLoader implements CommandLineRunner {
         Pet harshitaspet = new Pet();
         harshitaspet.setName("Jimmy");
         harshitaspet.setPetType(savedDog);
-        harshitaspet.setBirthData(LocalDate.now());
+        harshitaspet.setBirthDate(LocalDate.now());
         harshitaspet.setOwner(owner2);
 
 
