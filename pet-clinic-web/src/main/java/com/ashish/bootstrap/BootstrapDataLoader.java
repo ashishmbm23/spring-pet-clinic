@@ -4,6 +4,7 @@ import com.ashish.model.*;
 import com.ashish.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
@@ -32,7 +33,8 @@ public class BootstrapDataLoader implements CommandLineRunner {
             loadData();
     }
 
-    private void loadData() {
+    @Transactional
+    public void loadData() {
         PetType dog = new PetType();
         dog.setName("Dog");
         PetType savedDog = petTypeService.save(dog);

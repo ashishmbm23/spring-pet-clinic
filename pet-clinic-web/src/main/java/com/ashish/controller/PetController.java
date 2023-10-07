@@ -74,24 +74,24 @@ public class PetController {
     @Transactional
     public String updatePet(@PathVariable String petId, Owner owner, Model model){
         Pet pet = petService.findById(Long.parseLong(petId));
-        owner.getPets().add(pet);
-        pet.setOwner(owner);
         model.addAttribute("pet", pet);
         return PETS_CREATE_OR_UPDATE_PET_FORM;
     }
 
     @PostMapping("/pets/{petId}/edit")
     @Transactional
-    public String updatePet(Owner owner, @Valid Pet pet, BindingResult result, Model model){
-        owner.getPets().add(pet);
+    public String updatePet(@Valid Pet pet, BindingResult result,Owner owner, Model model){
         if( result.hasErrors() ){
             pet.setOwner(owner);
             model.addAttribute("pet", pet);
             return PETS_CREATE_OR_UPDATE_PET_FORM;
         }
-        owner.getPets().add(pet);
-        pet.setOwner(owner);
-        petService.save( pet );
+        Pet toBeSaved = petService.findById(pet.getId());
+        toBeSaved.setPetType(pet.getPetType());
+        toBeSaved.setName(pet.getName());
+        toBeSaved.setBirthDate(pet.getBirthDate());
+        owner.getPets().add(toBeSaved);
+        //petService.save( pet );
         return REDIRECT_OWNERS + owner.getId();
     }
 }
