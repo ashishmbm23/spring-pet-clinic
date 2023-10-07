@@ -91,7 +91,7 @@ public class PetController {
         toBeSaved.setName(pet.getName());
         toBeSaved.setBirthDate(pet.getBirthDate());
         owner.getPets().add(toBeSaved);
-        //petService.save( pet );
+        petService.save( toBeSaved );
         return REDIRECT_OWNERS + owner.getId();
     }
 }
