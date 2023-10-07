@@ -21,6 +21,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,6 +29,7 @@ class OwnerIndexControllerTest {
 
     public static final long OWNER_ID = 1L;
     public static final long ID = 1L;
+    public static final String OWNERS_CREATE_OR_UPDATE_OWNER_FORM = "owners/createOrUpdateOwnerForm";
     @Mock
     OwnerService ownerService;
 
@@ -95,5 +97,60 @@ class OwnerIndexControllerTest {
                 .andExpect( status().isOk() );
 
         verify( ownerService, times(1)).findById( anyLong() );
+    }
+
+    @Test
+    void initCreateForm() throws Exception{
+        //this will be called on /new and return an empty owner object and view will be createOrUpdate
+
+        mockMvc.perform( get("/owners/new"))
+                .andExpect( status().isOk() )
+                .andExpect( model().attributeExists("owner"))
+                .andExpect( view().name("owners/createOrUpdateOwnerForm"));
+
+        verifyNoInteractions( ownerService );
+    }
+
+    @Test
+    void processCreateForm() throws Exception {
+        //this will be called on response of initCreateForm, it will save data and redirect to detail page
+        Owner owner1 = Owner.builder().id(1L).build();
+        when( ownerService.save( any()) ).thenReturn( owner1 );
+
+        mockMvc.perform( post("/owners/new") )
+                .andExpect( status().is3xxRedirection() )
+               //.andExpect( model().attributeExists("owner") )
+                .andExpect( view().name("redirect:/owners/1"));
+
+        verify( ownerService, times(1)).save( any() );
+
+    }
+
+    @Test
+    void initUpdateForm() throws Exception{
+        //this will be called on /ownerId/edit, get the owner object and view will be returned createOrUpdate
+        Owner owner1 = Owner.builder().id(1L).build();
+        when( ownerService.findById( any()) ).thenReturn( owner1 );
+
+        mockMvc.perform( get("/owners/1/edit"))
+                .andExpect( status().isOk() )
+                .andExpect( model().attributeExists("owner"))
+                .andExpect( view().name(OWNERS_CREATE_OR_UPDATE_OWNER_FORM));
+
+        verify( ownerService, times(1)).findById(anyLong());
+    }
+
+    @Test
+    void processUpdateForm() throws Exception{
+        //this will be called on response of initUpdateForm, it will save data and redirect to detail page
+        Owner owner1 = Owner.builder().id(1L).build();
+        when( ownerService.save( any()) ).thenReturn( owner1 );
+
+        mockMvc.perform( post("/owners/1/edit") )
+                .andExpect( status().is3xxRedirection() )
+                .andExpect( view().name("redirect:/owners/1"));
+               // .andExpect( model().attributeExists("owner"));
+
+        verify( ownerService, times(1)).save(any());
     }
 }

@@ -31,4 +31,8 @@ public class BaseEntity implements Serializable,Comparable<BaseEntity> {
         }
     }
 
+    public Boolean isNew(){
+        return this.getId() == null;
+    }
+
 }
