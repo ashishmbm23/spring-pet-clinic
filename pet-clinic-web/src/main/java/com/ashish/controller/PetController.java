@@ -9,6 +9,7 @@ import com.ashish.services.PetTypeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -49,6 +50,7 @@ public class PetController {
     public String createPet(Owner owner, Model model){
         Pet pet = new Pet();
         owner.getPets().add(pet);
+        pet.setOwner(owner);
         model.addAttribute( "pet", pet);
         return PETS_CREATE_OR_UPDATE_PET_FORM;
     }
@@ -59,6 +61,7 @@ public class PetController {
             result.rejectValue("name", "duplicate", "already Present");
         }
         owner.getPets().add(pet);
+        pet.setOwner(owner);
         if( result.hasErrors() ){
             model.put("pet", pet);
             return PETS_CREATE_OR_UPDATE_PET_FORM;
@@ -68,14 +71,17 @@ public class PetController {
     }
 
     @GetMapping("/pets/{petId}/edit")
+    @Transactional
     public String updatePet(@PathVariable String petId, Owner owner, Model model){
         Pet pet = petService.findById(Long.parseLong(petId));
         owner.getPets().add(pet);
+        pet.setOwner(owner);
         model.addAttribute("pet", pet);
         return PETS_CREATE_OR_UPDATE_PET_FORM;
     }
 
     @PostMapping("/pets/{petId}/edit")
+    @Transactional
     public String updatePet(Owner owner, @Valid Pet pet, BindingResult result, Model model){
         owner.getPets().add(pet);
         if( result.hasErrors() ){
@@ -84,6 +90,7 @@ public class PetController {
             return PETS_CREATE_OR_UPDATE_PET_FORM;
         }
         owner.getPets().add(pet);
+        pet.setOwner(owner);
         petService.save( pet );
         return REDIRECT_OWNERS + owner.getId();
     }
