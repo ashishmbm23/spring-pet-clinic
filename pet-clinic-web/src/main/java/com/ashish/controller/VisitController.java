@@ -31,6 +31,7 @@ public class VisitController {
         Visit visit = new Visit();
         pet.getVisits().add( visit );
         visit.setPet(pet);
+        model.addAttribute("pet", pet);
         return visit;
     }
 
